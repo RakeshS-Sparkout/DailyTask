@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "435703277237",
+    "project_id": "buyergetter-abcf4",
+    "storage_bucket": "buyergetter-abcf4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435703277237:android:057c94b5429cf7c78a40fc",
+        "android_client_info": {
+          "package_name": "com.example.buyergetter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwL1qIhkOcI1ddm018vyEjzK7_AgJcTLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
