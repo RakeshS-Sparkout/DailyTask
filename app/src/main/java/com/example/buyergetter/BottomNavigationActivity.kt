@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import com.example.buyergetter.view.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 
@@ -27,6 +29,9 @@ class BottomNavigationActivity : AppCompatActivity(), NavigationBarView.OnItemSe
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigator)
         bottomNavigationView.setOnItemSelectedListener(this as NavigationBarView.OnItemSelectedListener)
         bottomNavigationView.selectedItemId = R.id.homeId
+
+        loadFragment(HomeFragment())
+
     }
 
     var firstFragment: HomeFragment = HomeFragment()
@@ -54,5 +59,10 @@ class BottomNavigationActivity : AppCompatActivity(), NavigationBarView.OnItemSe
             return true
         }
         return false
+    }
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main, fragment)
+            .commit()
     }
 }
