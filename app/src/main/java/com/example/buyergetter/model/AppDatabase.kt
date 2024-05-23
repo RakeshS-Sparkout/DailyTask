@@ -1,31 +1,31 @@
 package com.example.buyergetter.model
 
-import android.annotation.SuppressLint
-import android.app.Application
+import CartDao
+import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Products::class, CartItem::class], version = 1, exportSchema = false)
+@Database(entities = [CartItem::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun productDao(): ProductDao
-    abstract fun cartItemDao(): CartItemDao
+    abstract fun cartDao(): CartDao
 
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(@SuppressLint("RestrictedApi") context: Application): AppDatabase {
+        fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "product_database"
+                    "app_database"
                 ).build()
                 INSTANCE = instance
                 instance
             }
         }
+
     }
 }
 

@@ -12,24 +12,10 @@ import androidx.room.Query
 @Entity(tableName = "cart_items")
 data class CartItem(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val productId: Int,
+    val name: String,
+    val price: Double,
     val quantity: Int,
+    val image: Int,
+    val amount: Double
 )
 
-@Dao
-interface CartItemDao {
-    @Query("SELECT * FROM cart_items")
-    fun getAllCartItems(): LiveData<List<CartItem>>
-
-    @Query("SELECT * FROM cart_items WHERE productId = :productId")
-    suspend fun getCartItemByProductId(productId: Int): CartItem?
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCartItem(cartItem: CartItem)
-
-    @Delete
-    suspend fun deleteCartItem(cartItem: CartItem)
-
-    @Query("DELETE FROM cart_items WHERE productId = :productId")
-    suspend fun deleteCartItemByProductId(productId: Int)
-}

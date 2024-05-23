@@ -27,11 +27,11 @@ class HomeFragment : Fragment() {
         recyclerView.adapter = adapter
 
         val productItems = listOf(
-            Products(R.drawable.lap, "Laptop", 50000, "Here is brand new model", 4.2f),
-            Products(R.drawable.phone, "Samsung F1", 35000, "Samsung has launched a new series", 4.0f),
-            Products(R.drawable.ac, "LG Air Conditioner", 40000, "Bring a Kashmir in home", 4.1f),
-            Products(R.drawable.fridge, "Fridge", 25000, "Keep your food fresh", 3.9f),
-            Products(R.drawable.oven,"Microwave Oven",5500,"Keep it heated",3.7f)
+            Products(R.drawable.lap, "Laptop", "$600", "Here is brand new model", 4.2f),
+            Products(R.drawable.phone, "Samsung F1", "$350", "Samsung has launched a new series", 4.0f),
+            Products(R.drawable.ac, "LG Air Conditioner", "$400", "Bring a Kashmir in home", 4.1f),
+            Products(R.drawable.fridge, "Fridge", "$250", "Keep your food fresh", 3.9f),
+            Products(R.drawable.oven,"Microwave Oven","$75","Keep it heated",3.8f)
         )
 
         adapter.addItems(productItems)

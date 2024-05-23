@@ -1,5 +1,6 @@
 package com.example.buyergetter
 
+import OrderFragment
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -35,7 +36,7 @@ class BottomNavigationActivity : AppCompatActivity(), NavigationBarView.OnItemSe
     }
 
     var firstFragment: HomeFragment = HomeFragment()
-    var secondFragment = OrderFragment()
+    var secondFragment: OrderFragment = OrderFragment()
     var thirdFragment = SettingsFragment()
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val itemId = item.itemId
@@ -62,7 +63,7 @@ class BottomNavigationActivity : AppCompatActivity(), NavigationBarView.OnItemSe
     }
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main, fragment)
+            .replace(R.id.f1Fragment, fragment)
             .commit()
     }
 }
