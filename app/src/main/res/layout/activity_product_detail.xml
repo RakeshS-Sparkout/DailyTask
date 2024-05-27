@@ -37,10 +37,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:isIndicator="true"
         android:numStars="5"
         android:padding="5dp"
         android:stepSize="0.1"
-        android:isIndicator="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_nameDetail" />
 
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="1"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_increase"

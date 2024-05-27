@@ -6,28 +6,28 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.buyergetter.R
 import com.example.buyergetter.model.CartItem
 
 class CartAdapter(
     private val deleteCartItem: (Int) -> Unit
-) : RecyclerView.Adapter<CartAdapter.CartViewHolder>()  {
+) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     private val cartItems = mutableListOf<CartItem>()
 
-    fun addItems(items: LiveData<List<CartItem>>) {
+    fun setItems(items: List<CartItem>) {
         cartItems.clear()
         cartItems.addAll(items)
         notifyDataSetChanged()
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartAdapter.CartViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_cart,parent,false)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_cart, parent, false)
         return CartViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: CartAdapter.CartViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         val cartItem = cartItems[position]
         holder.textNameView.text = cartItem.name
         holder.textPriceView.text = cartItem.price.toString()
@@ -40,11 +40,9 @@ class CartAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return cartItems.size
-    }
+    override fun getItemCount(): Int = cartItems.size
 
-    inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val viewCartImage: AppCompatImageView = itemView.findViewById(R.id.cart_image)
         val textNameView: AppCompatTextView = itemView.findViewById(R.id.tv_cart_name)
         val textPriceView: AppCompatTextView = itemView.findViewById(R.id.tv_cart_price)

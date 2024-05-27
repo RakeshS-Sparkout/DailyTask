@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="300dp"
     android:layout_margin="5dp"
-    app:cardCornerRadius="5dp"
-    android:backgroundTint="@color/white">
+    android:backgroundTint="@color/white"
+    app:cardCornerRadius="5dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:layout_centerVertical="true"
             android:layout_margin="3dp"
             android:padding="3dp"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_imgname"
@@ -31,23 +31,23 @@
             android:hint="Name"
             android:padding="5dp"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="25sp"/>
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <RatingBar
             android:id="@+id/tv_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_imgname"
-            android:foregroundGravity="left"
+            android:layout_alignParentEnd="true"
             android:layout_toRightOf="@id/image"
+            android:foregroundGravity="left"
+            android:isIndicator="true"
             android:numStars="5"
             android:rating="0"
-            android:stepSize="0.1"
-            android:isIndicator="true"
             android:scaleX="0.5"
             android:scaleY="0.5"
-            android:layout_alignParentEnd="true"/>
+            android:stepSize="0.1" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_price"
@@ -65,11 +65,11 @@
             android:id="@+id/tv_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:layout_below="@id/tv_price"
             android:layout_margin="5dp"
             android:layout_toRightOf="@id/image"
-            android:padding="5dp"/>
+            android:padding="5dp"
+            android:textColor="@color/black" />
 
 
     </RelativeLayout>

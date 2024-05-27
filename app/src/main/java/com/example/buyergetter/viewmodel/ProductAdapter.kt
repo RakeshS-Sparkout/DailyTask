@@ -38,9 +38,9 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
         holder.imageView.setImageResource(product.image)
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.context,ProductDetailActivity::class.java)
+            val intent = Intent(holder.context, ProductDetailActivity::class.java)
             intent.putExtra("name", product.name)
-            intent.putExtra("price", product.price.replace("$","").toDouble())
+            intent.putExtra("price", product.price.replace("$", "").toDouble())
             intent.putExtra("description", product.description)
             intent.putExtra("rating", product.rating)
             intent.putExtra("image", product.image)

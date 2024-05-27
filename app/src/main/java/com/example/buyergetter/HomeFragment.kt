@@ -28,10 +28,16 @@ class HomeFragment : Fragment() {
 
         val productItems = listOf(
             Products(R.drawable.lap, "Laptop", "$600", "Here is brand new model", 4.2f),
-            Products(R.drawable.phone, "Samsung F1", "$350", "Samsung has launched a new series", 4.0f),
+            Products(
+                R.drawable.phone,
+                "Samsung F1",
+                "$350",
+                "Samsung has launched a new series",
+                4.0f
+            ),
             Products(R.drawable.ac, "LG Air Conditioner", "$400", "Bring a Kashmir in home", 4.1f),
             Products(R.drawable.fridge, "Fridge", "$250", "Keep your food fresh", 3.9f),
-            Products(R.drawable.oven,"Microwave Oven","$75","Keep it heated",3.8f)
+            Products(R.drawable.oven, "Microwave Oven", "$75", "Keep it heated", 3.8f)
         )
 
         adapter.addItems(productItems)

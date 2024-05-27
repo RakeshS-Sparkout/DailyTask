@@ -1,8 +1,6 @@
 package com.example.buyergetter
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.RatingBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -49,13 +47,12 @@ class ProductDetailActivity : AppCompatActivity() {
         intent?.let {
             val name = it.getStringExtra("name")
             price = it.getDoubleExtra("price", 0.0)
-            Log.d("ProductDetailActivity", "Price: $price")
             val description = it.getStringExtra("description")
             val rating = it.getFloatExtra("rating", 0f)
             val image = it.getIntExtra("image", 0)
 
             nameTextView.text = name
-            priceTextView.text = price.toString()
+            priceTextView.text = String.format("%.2f", price)
             descriptionTextView.text = description
             ratingBar.rating = rating
             imageView.setImageResource(image)
@@ -73,6 +70,7 @@ class ProductDetailActivity : AppCompatActivity() {
             addCartButton.setOnClickListener {
                 addToCart(name, price, quantity, image)
                 Toast.makeText(this, "Added to cart", Toast.LENGTH_SHORT).show()
+                finish()  // Optionally close this activity
             }
         }
     }
@@ -103,7 +101,13 @@ class ProductDetailActivity : AppCompatActivity() {
 
     private fun addToCart(name: String?, price: Double, quantity: Int, image: Int) {
         val amount = quantity * price
-        val cartItem = CartItem(name = name ?: "", price = price, quantity = quantity, image = image, amount = amount)
+        val cartItem = CartItem(
+            name = name ?: "",
+            price = price,
+            quantity = quantity,
+            image = image,
+            amount = amount
+        )
         lifecycleScope.launch(Dispatchers.IO) {
             val db = AppDatabase.getDatabase(applicationContext)
             db.cartDao().insert(cartItem)
