@@ -12,6 +12,7 @@ import com.example.buyergetter.model.AppDatabase
 import com.example.buyergetter.model.CartItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ProductDetailActivity : AppCompatActivity() {
 
@@ -45,14 +46,14 @@ class ProductDetailActivity : AppCompatActivity() {
         addCartButton = findViewById(R.id.btn_to_cart)
 
         intent?.let {
-            val name = it.getStringExtra("name")
+            val name = it.getStringExtra("name") ?: "Unknown"
             price = it.getDoubleExtra("price", 0.0)
-            val description = it.getStringExtra("description")
+            val description = it.getStringExtra("description") ?: "No description"
             val rating = it.getFloatExtra("rating", 0f)
             val image = it.getIntExtra("image", 0)
 
             nameTextView.text = name
-            priceTextView.text = String.format("%.2f", price)
+            priceTextView.text = String.format("$%.2f", price)
             descriptionTextView.text = description
             ratingBar.rating = rating
             imageView.setImageResource(image)
@@ -69,8 +70,6 @@ class ProductDetailActivity : AppCompatActivity() {
 
             addCartButton.setOnClickListener {
                 addToCart(name, price, quantity, image)
-                Toast.makeText(this, "Added to cart", Toast.LENGTH_SHORT).show()
-                finish()  // Optionally close this activity
             }
         }
     }
@@ -99,18 +98,25 @@ class ProductDetailActivity : AppCompatActivity() {
         totalAmountTextView.text = getString(R.string.total_amount_format, totalAmount)
     }
 
-    private fun addToCart(name: String?, price: Double, quantity: Int, image: Int) {
+    private fun addToCart(name: String, price: Double, quantity: Int, image: Int) {
         val amount = quantity * price
         val cartItem = CartItem(
-            name = name ?: "",
+            name = name,
             price = price,
             quantity = quantity,
             image = image,
             amount = amount
         )
+
         lifecycleScope.launch(Dispatchers.IO) {
             val db = AppDatabase.getDatabase(applicationContext)
             db.cartDao().insert(cartItem)
+
+            withContext(Dispatchers.Main) {
+                Toast.makeText(this@ProductDetailActivity, "Added to cart", Toast.LENGTH_SHORT)
+                    .show()
+                finish()
+            }
         }
     }
 }

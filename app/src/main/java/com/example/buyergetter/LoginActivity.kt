@@ -68,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this@LoginActivity, "Login Successful", Toast.LENGTH_SHORT)
                             .show()
                         val intent =
-                            Intent(this@LoginActivity, BottomNavigationActivity::class.java)
+                            Intent(this@LoginActivity, ShopActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {

@@ -17,8 +17,9 @@ import com.google.android.material.navigation.NavigationBarView
 class BottomNavigationActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
 
     private val firstFragment = HomeFragment()
-    private val secondFragment = OrderFragment()
-    private val thirdFragment = SettingsFragment()
+    private val secondFragment = CartFragment()
+    private val thirdFragment = OrderFragment()
+    private val fourthFragment = SettingsFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +43,9 @@ class BottomNavigationActivity : AppCompatActivity(), NavigationBarView.OnItemSe
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val fragment: Fragment = when (item.itemId) {
             R.id.homeId -> firstFragment
-            R.id.orderId -> secondFragment
-            R.id.settingsId -> thirdFragment
+            R.id.cartId -> secondFragment
+            R.id.orderId -> thirdFragment
+            R.id.settingsId -> fourthFragment
             else -> return false
         }
 

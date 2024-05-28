@@ -11,15 +11,24 @@ import com.example.buyergetter.R
 import com.example.buyergetter.model.CartItem
 
 class CartAdapter(
-    private val deleteCartItem: (Int) -> Unit
+    private var cartItems: List<CartItem>,
+    private val onPlaceOrderClick: (CartItem) -> Unit,
+    private val onRemoveClick: (CartItem) -> Unit
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
-    private val cartItems = mutableListOf<CartItem>()
-
     fun setItems(items: List<CartItem>) {
-        cartItems.clear()
-        cartItems.addAll(items)
+        cartItems = items
         notifyDataSetChanged()
+    }
+
+    inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val viewCartImage: AppCompatImageView = itemView.findViewById(R.id.cart_image)
+        val viewCartName: AppCompatTextView = itemView.findViewById(R.id.tv_cart_name)
+        val viewCartPrice: AppCompatTextView = itemView.findViewById(R.id.tv_cart_price)
+        val viewCartQuantity: AppCompatTextView = itemView.findViewById(R.id.tv_cart_quantity)
+        val viewCartAmount: AppCompatTextView = itemView.findViewById(R.id.tv_cart_total_amount)
+        val placeOrderButton: AppCompatButton = itemView.findViewById(R.id.btn_place_order)
+        val removeCartButton: AppCompatButton = itemView.findViewById(R.id.btn_delete_cart)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
@@ -27,27 +36,24 @@ class CartAdapter(
         return CartViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
-        val cartItem = cartItems[position]
-        holder.textNameView.text = cartItem.name
-        holder.textPriceView.text = cartItem.price.toString()
-        holder.textQuantityView.text = cartItem.quantity.toString()
-        holder.textAmountView.text = cartItem.amount.toString()
-        holder.viewCartImage.setImageResource(cartItem.image)
-
-        holder.deleteButton.setOnClickListener {
-            deleteCartItem(cartItem.id)
-        }
+    override fun getItemCount(): Int {
+        return cartItems.size
     }
 
-    override fun getItemCount(): Int = cartItems.size
+    override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
+        val cartItem = cartItems[position]
 
-    inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val viewCartImage: AppCompatImageView = itemView.findViewById(R.id.cart_image)
-        val textNameView: AppCompatTextView = itemView.findViewById(R.id.tv_cart_name)
-        val textPriceView: AppCompatTextView = itemView.findViewById(R.id.tv_cart_price)
-        val textQuantityView: AppCompatTextView = itemView.findViewById(R.id.tv_cart_quantity)
-        val textAmountView: AppCompatTextView = itemView.findViewById(R.id.tv_cart_total_amount)
-        val deleteButton: AppCompatButton = itemView.findViewById(R.id.btn_delete_order)
+        holder.viewCartImage.setImageResource(cartItem.image)
+        holder.viewCartName.text = cartItem.name
+        holder.viewCartPrice.text = cartItem.price.toString()
+        holder.viewCartQuantity.text = cartItem.quantity.toString()
+        holder.viewCartAmount.text = cartItem.amount.toString()
+
+        holder.placeOrderButton.setOnClickListener {
+            onPlaceOrderClick(cartItem)
+        }
+        holder.removeCartButton.setOnClickListener {
+            onRemoveClick(cartItem)
+        }
     }
 }

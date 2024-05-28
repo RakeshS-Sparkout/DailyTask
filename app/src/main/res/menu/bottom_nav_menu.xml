@@ -5,10 +5,15 @@
         android:id="@+id/homeId"
         android:title="Home"
         android:icon="@drawable/ic_home" />
+    <item
+        android:id="@+id/cartId"
+        android:title="Cart"
+        android:icon="@drawable/ic_cart"/>
+
 
     <item
         android:id="@+id/orderId"
-        android:title="My Order"
+        android:title="My order"
         android:icon="@drawable/ic_order" />
 
     <item

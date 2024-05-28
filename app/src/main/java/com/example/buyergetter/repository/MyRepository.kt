@@ -1,8 +1,8 @@
 package com.example.buyergetter.repository
 
 import androidx.lifecycle.LiveData
-import com.example.buyergetter.model.CartItem
 import com.example.buyergetter.model.CartDao
+import com.example.buyergetter.model.CartItem
 
 class MyRepository(private val cartDao: CartDao) {
 
@@ -14,5 +14,9 @@ class MyRepository(private val cartDao: CartDao) {
 
     suspend fun deleteCartItemById(cartItemId: Int) {
         cartDao.deleteCartItemById(cartItemId)
+    }
+
+    suspend fun clearCart() {
+        cartDao.clearCart()
     }
 }

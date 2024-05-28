@@ -150,7 +150,7 @@ class RegisterActivity : AppCompatActivity() {
                             ).show()
                             saveRegisterData(phoneNum)
                             val intent =
-                                Intent(this@RegisterActivity, BottomNavigationActivity::class.java)
+                                Intent(this@RegisterActivity, ShopActivity::class.java)
                             startActivity(intent)
                             finish()
                         }

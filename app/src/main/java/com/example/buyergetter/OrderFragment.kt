@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.buyergetter.repository.CartAdapter
-import com.example.buyergetter.viewmodel.CartViewModel
+import com.example.buyergetter.repository.OrderAdapter
+import com.example.buyergetter.viewmodel.OrderViewModel
 
 class OrderFragment : Fragment() {
 
-    private lateinit var adapter: CartAdapter
-    private lateinit var cartViewModel: CartViewModel
+    private lateinit var orderAdapter: OrderAdapter
+    private lateinit var orderViewModel: OrderViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,18 +24,15 @@ class OrderFragment : Fragment() {
 
         val recyclerView: RecyclerView = view.findViewById(R.id.order_recycler)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = CartAdapter { cartItemId -> deleteCartItem(cartItemId) }
-        recyclerView.adapter = adapter
+        orderAdapter = OrderAdapter(emptyList()) // Removed the unnecessary callback parameter
+        recyclerView.adapter = orderAdapter
 
-        cartViewModel = ViewModelProvider(this).get(CartViewModel::class.java)
-        cartViewModel.allCartItems.observe(viewLifecycleOwner, { cartItems ->
-            cartItems?.let { adapter.setItems(it) }
+        orderViewModel = ViewModelProvider(this).get(OrderViewModel::class.java)
+
+        orderViewModel.orders.observe(viewLifecycleOwner, { orders ->
+            orders?.let { orderAdapter.setItems(it) }
         })
 
         return view
-    }
-
-    private fun deleteCartItem(cartItemId: Int) {
-        cartViewModel.deleteCartItemById(cartItemId)
     }
 }

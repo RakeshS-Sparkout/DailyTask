@@ -31,7 +31,7 @@ class SplashActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             val nextActivity = if (isUserLoggedIn()) {
-                BottomNavigationActivity::class.java
+                ShopActivity::class.java
             } else {
                 LoginActivity::class.java
             }
