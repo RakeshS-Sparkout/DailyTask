@@ -1,31 +1,25 @@
 package com.example.buyergetter
 
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.view.WindowInsets
-import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import com.example.buyergetter.view.HomeFragment
+import com.example.buyergetter.model.Shop
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 
 class BottomNavigationActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
 
-    private val firstFragment = HomeFragment()
-    private val secondFragment = CartFragment()
-    private val thirdFragment = OrderFragment()
-    private val fourthFragment = SettingsFragment()
+    private lateinit var homeFragment: HomeFragment
+    private lateinit var cartFragment: CartFragment
+    private lateinit var orderFragment: OrderFragment
+    private lateinit var settingsFragment: SettingsFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottom_nav)
-
-        enableEdgeToEdge()
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -35,17 +29,26 @@ class BottomNavigationActivity : AppCompatActivity(), NavigationBarView.OnItemSe
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigator)
         bottomNavigationView.setOnItemSelectedListener(this)
-        bottomNavigationView.selectedItemId = R.id.homeId
+        
+        val selectedShop = intent.getParcelableExtra<Shop>("selected_shop")
 
-        loadFragment(firstFragment)
+
+        homeFragment = selectedShop?.let { HomeFragment.newInstance(it) } ?: HomeFragment()
+        cartFragment = CartFragment()
+        orderFragment = OrderFragment()
+        settingsFragment = SettingsFragment()
+
+
+        loadFragment(homeFragment)
+        bottomNavigationView.selectedItemId = R.id.homeId
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val fragment: Fragment = when (item.itemId) {
-            R.id.homeId -> firstFragment
-            R.id.cartId -> secondFragment
-            R.id.orderId -> thirdFragment
-            R.id.settingsId -> fourthFragment
+            R.id.homeId -> homeFragment
+            R.id.cartId -> cartFragment
+            R.id.orderId -> orderFragment
+            R.id.settingsId -> settingsFragment
             else -> return false
         }
 
@@ -57,29 +60,5 @@ class BottomNavigationActivity : AppCompatActivity(), NavigationBarView.OnItemSe
         supportFragmentManager.beginTransaction()
             .replace(R.id.f1Fragment, fragment)
             .commit()
-    }
-
-    private fun enableEdgeToEdge() {
-        window.decorView.post {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                window.setDecorFitsSystemWindows(false)
-                val controller = window.insetsController
-                controller?.let {
-                    it.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                    it.systemBarsBehavior =
-                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-                }
-            } else {
-                @Suppress("DEPRECATION")
-                window.decorView.systemUiVisibility = (
-                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                                or View.SYSTEM_UI_FLAG_FULLSCREEN
-                                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                        )
-            }
-        }
     }
 }

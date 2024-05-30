@@ -1,19 +1,33 @@
-package com.example.buyergetter.view
+package com.example.buyergetter
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.buyergetter.R
-import com.example.buyergetter.model.Products
+import com.example.buyergetter.model.Shop
 import com.example.buyergetter.viewmodel.ProductAdapter
+import com.example.buyergetter.viewmodel.ProductViewModel
 
 class HomeFragment : Fragment() {
 
     private lateinit var adapter: ProductAdapter
+    private val productViewModel: ProductViewModel by activityViewModels()
+
+    companion object {
+        private const val ARG_SHOP = "shop"
+
+        fun newInstance(shop: Shop): HomeFragment {
+            val fragment = HomeFragment()
+            val args = Bundle()
+            args.putParcelable(ARG_SHOP, shop)
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,21 +40,15 @@ class HomeFragment : Fragment() {
         adapter = ProductAdapter()
         recyclerView.adapter = adapter
 
-        val productItems = listOf(
-            Products(R.drawable.lap, "Laptop", "$600", "Here is brand new model", 4.2f),
-            Products(
-                R.drawable.phone,
-                "Samsung F1",
-                "$350",
-                "Samsung has launched a new series",
-                4.0f
-            ),
-            Products(R.drawable.ac, "LG Air Conditioner", "$400", "Bring a Kashmir in home", 4.1f),
-            Products(R.drawable.fridge, "Fridge", "$250", "Keep your food fresh", 3.9f),
-            Products(R.drawable.oven, "Microwave Oven", "$75", "Keep it heated", 3.8f)
-        )
-
-        adapter.addItems(productItems)
+        val shop: Shop? = arguments?.getParcelable(ARG_SHOP) as? Shop
+        shop?.let {
+            val productLiveData = productViewModel.getProductsForShop(it.shopId)
+            productLiveData.observe(viewLifecycleOwner) { productList ->
+                if (productList != null) {
+                    adapter.submitList(productList)
+                }
+            }
+        }
 
         return view
     }
