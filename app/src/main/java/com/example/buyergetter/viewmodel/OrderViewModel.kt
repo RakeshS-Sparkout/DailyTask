@@ -36,24 +36,33 @@ class OrderViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle possible errors with Firebase operations
             }
         })
     }
 
     fun placeOrder(order: Order) {
         val database = FirebaseDatabase.getInstance().reference
-        val ordersRef = database.child("orders").push() // Get a reference for a new order
-        order.orderId = ordersRef.key ?: throw IllegalStateException("Failed to generate order ID") // Set order ID
+        val ordersRef = database.child("orders").push()
+        order.orderId = ordersRef.key ?: throw IllegalStateException("Failed to generate order ID")
 
         ordersRef.setValue(order).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                // This is where you can handle post-order placement tasks
-                // For example: Update UI to reflect the order has been placed successfully
                 Toast.makeText(applicationContext, "Order Placed Successfully", Toast.LENGTH_LONG).show()
             } else {
-                // Handle the failure of placing an order, could log an error or notify the user
-                // For example: Use a Snackbar to show an error message
+                Toast.makeText(applicationContext,"Order not placed",Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    fun updateOrderStatus(orderId: String, newStatus: Int) {
+        val database = FirebaseDatabase.getInstance().reference
+        val orderRef = database.child("orders").child(orderId).child("status")
+
+        orderRef.setValue(newStatus).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(applicationContext, "Order Status Updated", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(applicationContext, "Failed to Update Order Status", Toast.LENGTH_SHORT).show()
             }
         }
     }

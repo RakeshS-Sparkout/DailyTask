@@ -1,4 +1,4 @@
-package com.example.buyergetter
+package com.example.buyergetter.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.buyergetter.repository.OrderAdapter
+import com.example.buyergetter.R
+import com.example.buyergetter.adapter.OrderAdapter
 import com.example.buyergetter.viewmodel.OrderViewModel
 
 class OrderFragment : Fragment() {
@@ -24,7 +25,7 @@ class OrderFragment : Fragment() {
 
         val recyclerView: RecyclerView = view.findViewById(R.id.order_recycler)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        orderAdapter = OrderAdapter(emptyList()) // Removed the unnecessary callback parameter
+        orderAdapter = OrderAdapter(emptyList())
         recyclerView.adapter = orderAdapter
 
         orderViewModel = ViewModelProvider(this).get(OrderViewModel::class.java)

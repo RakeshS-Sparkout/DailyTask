@@ -1,4 +1,4 @@
-package com.example.buyergetter.repository
+package com.example.buyergetter.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +24,7 @@ class OrderAdapter(
     inner class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val viewOrderImage: AppCompatImageView = itemView.findViewById(R.id.order_image)
         val viewOrderName: AppCompatTextView = itemView.findViewById(R.id.tv_product_name)
+        val viewOrderStatus: AppCompatTextView = itemView.findViewById(R.id.tv_status) // Add this line
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
@@ -41,6 +42,19 @@ class OrderAdapter(
         firstItem?.let {
             holder.viewOrderImage.setImageResource(it.image)
             holder.viewOrderName.text = it.name
+        }
+        holder.viewOrderStatus.text = getStatusMessage(order.status)
+    }
+
+    private fun getStatusMessage(status: Int): String {
+        return when (status) {
+            1 -> "Order Placed"
+            2 -> "Order Confirmed"
+            3 -> "Order Processed"
+            4 -> "Shipped"
+            5 -> "Out for Delivery"
+            6 -> "Delivered"
+            else -> "Unknown Status"
         }
     }
 }

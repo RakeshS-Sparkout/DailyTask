@@ -1,4 +1,4 @@
-package com.example.buyergetter.repository
+package com.example.buyergetter.adapter
 
 import android.view.LayoutInflater
 import android.view.View

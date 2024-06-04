@@ -1,4 +1,4 @@
-package com.example.buyergetter
+package com.example.buyergetter.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.buyergetter.R
 import com.example.buyergetter.model.Shop
 import com.example.buyergetter.viewmodel.ProductAdapter
 import com.example.buyergetter.viewmodel.ProductViewModel

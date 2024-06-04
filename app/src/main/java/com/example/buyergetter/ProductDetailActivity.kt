@@ -110,6 +110,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             val db = AppDatabase.getDatabase(applicationContext)
+            db.cartDao().clearCart()
             db.cartDao().insert(cartItem)
 
             withContext(Dispatchers.Main) {

@@ -1,4 +1,4 @@
-package com.example.buyergetter
+package com.example.buyergetter.fragments
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -14,6 +14,9 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
+import com.example.buyergetter.LoginActivity
+import com.example.buyergetter.R
+import com.example.buyergetter.User
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference

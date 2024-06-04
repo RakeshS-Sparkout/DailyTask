@@ -18,7 +18,6 @@ abstract class AppDatabase : RoomDatabase() {
 
         private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                // Create a new table with the correct schema
                 database.execSQL("""
                     CREATE TABLE products_new (
                         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,

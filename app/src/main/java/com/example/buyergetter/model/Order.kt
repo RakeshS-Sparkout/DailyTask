@@ -5,7 +5,8 @@ data class Order(
     val userId: String = "",
     val items: List<OrderItem> = emptyList(),
     val totalAmount: Double = 0.0,
-    val orderDate: Long = System.currentTimeMillis()
+    val orderDate: Long = System.currentTimeMillis(),
+    var status: Int = 0
 ) {
     data class OrderItem(
         val name: String = "",

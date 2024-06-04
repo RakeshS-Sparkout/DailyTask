@@ -6,6 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.example.buyergetter.fragments.CartFragment
+import com.example.buyergetter.fragments.HomeFragment
+import com.example.buyergetter.fragments.OrderFragment
+import com.example.buyergetter.fragments.SettingsFragment
 import com.example.buyergetter.model.Shop
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView

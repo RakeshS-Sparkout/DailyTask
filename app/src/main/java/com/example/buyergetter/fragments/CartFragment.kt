@@ -1,4 +1,4 @@
-package com.example.buyergetter
+package com.example.buyergetter.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.buyergetter.R
 import com.example.buyergetter.model.CartItem
 import com.example.buyergetter.model.Order
-import com.example.buyergetter.repository.CartAdapter
+import com.example.buyergetter.model.UserIdUtil
+import com.example.buyergetter.adapter.CartAdapter
 import com.example.buyergetter.viewmodel.CartViewModel
 import com.example.buyergetter.viewmodel.OrderViewModel
 import com.google.firebase.database.FirebaseDatabase
@@ -44,9 +46,11 @@ class CartFragment : Fragment() {
     }
 
     private fun onPlaceOrderClick(cartItem: CartItem) {
+        val userId = UserIdUtil.getUserId(requireContext())
+
         val order = Order(
             orderId = generateOrderId(),
-            userId = "defaultUserId",
+            userId = userId,
             items = listOf(
                 Order.OrderItem(
                     name = cartItem.name,
@@ -66,7 +70,6 @@ class CartFragment : Fragment() {
                 cartViewModel.removeCartItem(cartItem)
                 Toast.makeText(context, "Order placed and item removed from cart", Toast.LENGTH_SHORT).show()
             } else {
-
                 Toast.makeText(context, "Failed to place order", Toast.LENGTH_SHORT).show()
             }
         }
